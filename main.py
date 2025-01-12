@@ -1,4 +1,5 @@
 from requests import *
+import telebot.types
 import telebot
 TOKEN = "7345251836:AAFyEw6TwmMl5YS0yWBtnYzenB4zu3llT3I"
 bot = telebot.TeleBot(TOKEN)
@@ -17,10 +18,18 @@ def weth(cn,b=5):
 
     return res
 
-
 @bot.message_handler(commands=['start'])
 def handle_start(message):
-    bot.send_message(message.chat.id, 'Отправте название города и через пробел на сколько часов вперед(можно не вводить)')
+    k = telebot.types.InlineKeyboardMarkup()
+    
+    j = telebot.types.InlineKeyboardButton('да', callback_data='0')
+
+    l = telebot.types.InlineKeyboardButton('нет', callback_data='1')
+    
+    k.add(j)
+    k.add(l)
+    k.add(gh)
+    bot.send_message(message.chat.id, 'Отправте название города и через пробел на сколько часов вперед(можно не вводить)',reply_markup=k)
     bot.register_next_step_handler(message, input_use_name)
 
 @bot.message_handler(content_types=['text'])
